@@ -1,6 +1,6 @@
 class Class
   def inject(*deps)
-    check_atticable
+    check_pinball
     if @dependencies
       @dependencies.concat(deps)
     else
@@ -8,9 +8,9 @@ class Class
     end
   end
 
-  def check_atticable
-    unless self.is_a? Attic::Atticable
-      self.extend Attic::Atticable
+  def check_pinball
+    unless self.is_a? Pinball
+      self.extend Pinball
     end
   end
 end

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'attic/version'
+require 'pinball/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'attic'
-  spec.version       = Attic::VERSION
+  spec.name          = 'piball'
+  spec.version       = Pinball::VERSION
   spec.authors       = ['Gleb Sinyavsky']
   spec.email         = ['zhulik.gleb@gmail.com']
   spec.summary       = 'Simple dependency injection for ruby'

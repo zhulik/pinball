@@ -1,4 +1,4 @@
-module Attic
+module Pinball
   class ContainerItem
     attr_accessor :value
 

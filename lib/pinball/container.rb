@@ -1,7 +1,7 @@
 require 'singleton'
 require_relative 'container_item'
 
-module Attic
+module Pinball
   class Container
     include Singleton
 
