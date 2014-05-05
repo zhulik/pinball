@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'pinball/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'piball'
+  spec.name          = 'pinball'
   spec.version       = Pinball::VERSION
   spec.authors       = ['Gleb Sinyavsky']
   spec.email         = ['zhulik.gleb@gmail.com']
