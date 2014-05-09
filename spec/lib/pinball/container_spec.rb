@@ -78,5 +78,10 @@ describe Pinball::Container do
       expect(foo.new.respond_to?(:baz)).to be_true
       expect(foo.new.respond_to?(:bar)).to be_true
     end
+
+    it 'injects valid dependencies' do
+      expect(foo.new.baz).to eq(0)
+      expect(foo.new.bar).to be_an_instance_of(Hash)
+    end
   end
 end
