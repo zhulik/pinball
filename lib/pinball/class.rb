@@ -2,7 +2,7 @@ class Class
   def inject(*deps)
     check_pinball
     if @dependencies
-      @dependencies.concat(deps)
+      @dependencies.concat(deps).uniq!
     else
       @dependencies = deps
     end
@@ -15,6 +15,8 @@ class Class
       end
     end
   end
+
+  private
 
   def check_pinball
     unless self.is_a? Pinball
