@@ -35,8 +35,14 @@ describe Class do
 
   describe '::class_inject' do
     it 'defines new method' do
-      foo.class_inject :span
-      expect(foo.respond_to?(:span)).to be_true
+      foo.class_inject :baz
+      expect(foo.respond_to?(:baz)).to be_true
+    end
+
+    it 'injects valid dependency' do
+      Pinball::Container.define :baz, 0
+      foo.class_inject :baz
+      expect(foo.baz).to eq(0)
     end
   end
 end

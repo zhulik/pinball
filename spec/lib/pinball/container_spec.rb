@@ -65,23 +65,28 @@ describe Pinball::Container do
   end
 
   describe '#inject' do
-    let!(:foo) { Class.new{ inject :baz; inject :bar } }
+    let!(:foo) { Class.new{ inject :baz, :bar, :spam } }
 
     before do
       Pinball::Container.configure do
         define :baz, 0
         define :bar, Hash
+        define :spam do
+          Array.new
+        end
       end
     end
 
     it 'automatically injects dependencies to class' do
       expect(foo.new.respond_to?(:baz)).to be_true
       expect(foo.new.respond_to?(:bar)).to be_true
+      expect(foo.new.respond_to?(:spam)).to be_true
     end
 
     it 'injects valid dependencies' do
       expect(foo.new.baz).to eq(0)
       expect(foo.new.bar).to be_an_instance_of(Hash)
+      expect(foo.new.spam).to be_an_instance_of(Array)
     end
   end
 end
