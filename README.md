@@ -1,1 +1,1 @@
-## Pinball [![Build Status][1]][2] [![Code Climate][3]][4]
+## Pinball [![Build Status](https://travis-ci.org/zhulik/pinball.svg?branch=master)](https://travis-ci.org/zhulik/pinball)
