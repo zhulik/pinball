@@ -52,7 +52,6 @@ Also you can inject any already existed object
 ```ruby
 require 'pinball'
 
-
 Pinball::Container.configure do
   define :string, 'any pre-defined string'
 end
@@ -64,8 +63,8 @@ In this case `string` method will return 'any pre-defined string'
 
 The most powerful feature of pinball is block injection.
 For example, you have `FirstService` class, that dependent on
-`SecondService` class, but for instantiating `SecondService` we need
-to pass `current_user` from `FirstService` to it's constructor:
+`SecondService` class, but for instantiating `SecondService` you need
+to pass `@current_user` from `FirstService` to it's constructor:
 
 ```ruby
 class FirstService
@@ -94,4 +93,7 @@ Pinball::Container.configure do
 end
 ```
 
-And it will work!
+This block will be executed it `FirstService` instance context and
+`@current_user` will be accessible
+**Notice:** each call of `second_service` will call this block over and over again
+
