@@ -9,13 +9,13 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Gleb Sinyavsky']
   spec.email         = ['zhulik.gleb@gmail.com']
   spec.summary       = 'Simple dependency injection for ruby'
-  spec.description   = 'Simple dependency injection for ruby'
-  spec.homepage      = ''
+  spec.description   = 'Simple and stupid IOC container and dependency injection tool for ruby'
+  spec.homepage      = 'https://github.com/zhulik/pinball'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = []
-  spec.test_files    = []
+  spec.test_files    = `git ls-files spec`.split($/)
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.6'
