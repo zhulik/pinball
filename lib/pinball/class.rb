@@ -11,7 +11,7 @@ class Class
   def class_inject(*deps)
     deps.each do |dep|
       define_singleton_method dep do
-        Pinball::Container.instance.items[dep].fetch(self)
+        Pinball::Container.lookup(dep).fetch(self)
       end
     end
   end

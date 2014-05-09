@@ -1,43 +1,42 @@
 require 'spec_helper.rb'
 require 'pinball'
 
-class Foo
-
+Pinball::Container.configure do
+  define :baz, 0
+  define :bar, 0
 end
 
 describe Class do
-  before do
-    Foo.instance_variable_set('@dependencies', nil)
-  end
-
+  let!(:foo) { Class.new }
+  
   describe '::inject' do
     it 'responds to ::inject method' do
-      expect(Foo.respond_to?(:inject)).to be_true
+      expect(foo.respond_to?(:inject)).to be_true
     end
 
     it 'creates @dependencies array' do
-      Foo.inject :spam
-      expect(Foo.instance_variable_get('@dependencies')).to match_array([:spam])
+      foo.inject :baz
+      expect(foo.instance_variable_get('@dependencies')).to match_array([:baz])
     end
 
     it 'adds items to @dependencies array' do
-      Foo.inject :spam
-      Foo.inject :egg
-      expect(Foo.instance_variable_get('@dependencies')).to match_array([:spam, :egg])
+      foo.inject :baz
+      foo.inject :bar
+      expect(foo.instance_variable_get('@dependencies')).to match_array([:baz, :bar])
     end
 
     it 'doesn\'t duplicate dependencies' do
-      Foo.inject :spam
-      Foo.inject :egg
-      Foo.inject :egg
-      expect(Foo.instance_variable_get('@dependencies')).to match_array([:spam, :egg])
+      foo.inject :baz
+      foo.inject :bar
+      foo.inject :bar
+      expect(foo.instance_variable_get('@dependencies')).to match_array([:baz, :bar])
     end
   end
 
   describe '::class_inject' do
     it 'defines new method' do
-      Foo.class_inject :span
-      expect(Foo.respond_to?(:span)).to be_true
+      foo.class_inject :span
+      expect(foo.respond_to?(:span)).to be_true
     end
   end
 end
