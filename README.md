@@ -1,1 +1,1 @@
-## Pinball [![Build Status](https://travis-ci.org/zhulik/pinball.svg?branch=master)](https://travis-ci.org/zhulik/pinball)
+## Pinball [![Build Status](https://travis-ci.org/zhulik/pinball.svg?branch=master)](https://travis-ci.org/zhulik/pinball) [![Coverage Status](https://img.shields.io/coveralls/zhulik/pinball.svg)](https://coveralls.io/r/zhulik/pinball?branch=master) [![Code Climate](https://codeclimate.com/github/zhulik/pinball.png)](https://codeclimate.com/github/zhulik/pinball)
