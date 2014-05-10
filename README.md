@@ -42,8 +42,8 @@ end
 
 Now we can instantiate Service object and `repository` method will
 be already accessible in it's constructor! In this case *repository*
-method will return the instance of Repository
-**Notice:** each call of `repository` will create new instance of `Repository`
+method will return the instance of Repository.
+**Notice:** each call of `repository` will create new instance of `Repository`.
 
 ### Object injection
 
@@ -93,7 +93,34 @@ Pinball::Container.configure do
 end
 ```
 
-This block will be executed it `FirstService` instance context and
-`@current_user` will be accessible
-**Notice:** each call of `second_service` will call this block over and over again
+This block will be executed it `FirstService` instance context where
+`@current_user` will be accessible.
+**Notice:** each call of `second_service` will call this block over and over again.
+
+### class_inject
+
+Sometimes you need to inject dependency to class, when it must be available in
+class methods. For this purpose Pinball has `class_inject` declaration:
+
+```ruby
+  class Foo
+    class_inject :baz
+  end
+
+  Foo.baz
+```
+
+## Future plans
+
+* Rails integration
+* Dependency lifecycle managing in Rails context
+* Smart caching
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
