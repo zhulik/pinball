@@ -2,7 +2,7 @@
 
 ### Simple IOC Container and DI tool for ruby.
 
-Pinball is a library for using dependency injection within ruby
+Pinball is a library for using dependency injection within Ruby
 applications. It provides a clear IOC Container that manages
 dependencies between your classes.
 
@@ -124,3 +124,4 @@ class methods. For this purpose Pinball has `class_inject` declaration:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+Inspired by [Encase gem](https://github.com/dsawardekar/encase "Encase gem")
