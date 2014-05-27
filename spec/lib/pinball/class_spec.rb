@@ -1,8 +1,6 @@
 require 'spec_helper.rb'
 require 'pinball'
 
-
-
 describe Class do
   before do
     Pinball::Container.clear
