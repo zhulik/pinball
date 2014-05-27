@@ -21,6 +21,7 @@ class Class
   def check_pinball
     unless self.is_a? Pinball
       self.extend Pinball
+      self.send(:include, Pinball::Methods)
     end
   end
 end

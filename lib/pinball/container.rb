@@ -44,7 +44,7 @@ module Pinball
     def inject(target)
       target.class.dependencies.each do |dep|
         target.define_singleton_method dep do
-          Container.instance.items[dep].fetch(self)
+          Container.instance.items.merge(overridden_dependencies)[dep].fetch(self)
         end
       end
     end

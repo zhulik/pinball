@@ -45,4 +45,26 @@ describe Class do
       expect(foo.baz).to eq(0)
     end
   end
+
+  describe '#override_dependency' do
+    let!(:foo_instance) { foo.inject :baz ; foo.new }
+
+    subject { foo_instance.override_dependency(:baz, 1) }
+
+    it 'adds overridden dependency' do
+      subject
+      expect(foo_instance.overridden_dependencies[:baz]).not_to be_nil
+      #expect(foo_instance.baz).to eq(1)
+    end
+
+    it 'resolves overridden dependency' do
+      subject
+      expect(foo_instance.baz).to eq(1)
+    end
+
+    it 'returns self' do
+      expect(subject).to eq(foo_instance)
+
+    end
+  end
 end
