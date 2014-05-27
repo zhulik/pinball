@@ -16,12 +16,15 @@ class Class
     end
   end
 
-  private
-
   def check_pinball
     unless self.is_a? Pinball
       self.extend Pinball
       self.send(:include, Pinball::Methods)
+
+      self.send(:define_singleton_method, :inherited) do |child|
+        child.instance_variable_set :@dependencies, self.dependencies
+        child.check_pinball
+      end
     end
   end
 end

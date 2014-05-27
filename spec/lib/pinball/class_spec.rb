@@ -8,7 +8,7 @@ end
 
 describe Class do
   let!(:foo) { Class.new }
-  
+
   describe '::inject' do
     it 'responds to ::inject method' do
       expect(foo.respond_to?(:inject)).to be_true
@@ -29,7 +29,7 @@ describe Class do
       foo.inject :baz
       foo.inject :bar
       foo.inject :bar
-      expect(foo.instance_variable_get('@dependencies')).to match_array([:baz, :bar])
+      expect(foo.dependencies).to match_array([:baz, :bar])
     end
   end
 
@@ -46,6 +46,14 @@ describe Class do
     end
   end
 
+  describe '::dependencies' do
+    it 'returns list of dependencies' do
+      foo.inject :baz
+      foo.inject :bar
+      expect(foo.dependencies).to match_array([:baz, :bar])
+    end
+  end
+
   describe '#override_dependency' do
     let!(:foo_instance) { foo.inject :baz ; foo.new }
 
@@ -54,7 +62,6 @@ describe Class do
     it 'adds overridden dependency' do
       subject
       expect(foo_instance.overridden_dependencies[:baz]).not_to be_nil
-      #expect(foo_instance.baz).to eq(1)
     end
 
     it 'resolves overridden dependency' do
@@ -64,6 +71,27 @@ describe Class do
 
     it 'returns self' do
       expect(subject).to eq(foo_instance)
+    end
+  end
+
+  context 'for subclass' do
+    let!(:foo) { Class.new { inject :baz ; inject :bar} }
+    let!(:fooo) { Class.new(foo) }
+
+    let!(:foo_instance) { foo.new }
+    let!(:fooo_instance) { fooo.new }
+
+    describe '::dependencies' do
+      it 'returns ancestor\'s dependencies' do
+        expect(fooo.dependencies).to eq(foo.dependencies)
+      end
+    end
+
+    describe 'injection in subclass' do
+      it 'returns dependency' do
+        expect(fooo_instance.baz).to eq(foo_instance.baz)
+        expect(fooo_instance.bar).to eq(foo_instance.bar)
+      end
     end
   end
 end

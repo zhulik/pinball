@@ -15,7 +15,6 @@ module Pinball
 
   attr_reader :dependencies
 
-
   def new(*args)
     object = allocate
     Container.instance.inject(object)
