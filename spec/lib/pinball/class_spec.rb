@@ -3,7 +3,8 @@ require 'pinball'
 
 Pinball::Container.configure do
   define :baz, 0
-  define :bar, 0
+  define :bar, 1
+  define :egg, 2
 end
 
 describe Class do
@@ -40,7 +41,6 @@ describe Class do
     end
 
     it 'injects valid dependency' do
-      Pinball::Container.define :baz, 0
       foo.class_inject :baz
       expect(foo.baz).to eq(0)
     end
@@ -77,6 +77,7 @@ describe Class do
   context 'for subclass' do
     let!(:foo) { Class.new { inject :baz ; inject :bar} }
     let!(:fooo) { Class.new(foo) }
+    let!(:bazz) { Class.new{ inject :egg } }
 
     let!(:foo_instance) { foo.new }
     let!(:fooo_instance) { fooo.new }
@@ -91,6 +92,10 @@ describe Class do
       it 'returns dependency' do
         expect(fooo_instance.baz).to eq(foo_instance.baz)
         expect(fooo_instance.bar).to eq(foo_instance.bar)
+      end
+
+      it 'dependencies inherited only for descendants' do
+        expect(bazz.dependencies).to eq([:egg])
       end
     end
   end
