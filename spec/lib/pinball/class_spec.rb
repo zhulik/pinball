@@ -64,7 +64,6 @@ describe Class do
 
     it 'returns self' do
       expect(subject).to eq(foo_instance)
-
     end
   end
 end
