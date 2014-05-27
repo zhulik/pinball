@@ -1,13 +1,20 @@
 require 'spec_helper.rb'
 require 'pinball'
 
-Pinball::Container.configure do
-  define :baz, 0
-  define :bar, 1
-  define :egg, 2
-end
+
 
 describe Class do
+  before do
+    Pinball::Container.clear
+
+    Pinball::Container.configure do
+      define :baz, 0
+      define :bar, 1
+      define :egg, 2
+    end
+
+  end
+
   let!(:foo) { Class.new }
 
   describe '::inject' do

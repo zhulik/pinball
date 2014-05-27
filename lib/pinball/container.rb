@@ -30,6 +30,7 @@ module Pinball
     end
 
     def initialize
+
       @items = {}
     end
 
