@@ -18,8 +18,8 @@ module Pinball
   def new(*args)
     object = allocate
     Container.instance.inject(object)
-    object.send(:initialize, *args)
     object.instance_variable_set(:@overridden_dependencies, {})
+    object.send(:initialize, *args)
     object
   end
 end
