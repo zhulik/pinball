@@ -13,6 +13,12 @@ module Pinball
     end
   end
 
+  class UnknownDependency < StandardError
+  end
+
+  class WrongArity < StandardError
+  end
+
   attr_reader :dependencies
 
   def new(*args)

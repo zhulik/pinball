@@ -24,18 +24,29 @@ module Pinball
         Pinball::Container.instance.define(key, value, &block)
       end
 
+      def define_singleton(key, klass)
+        Pinball::Container.instance.define_singleton(key, klass)
+      end
+
       def undefine(key)
         Pinball::Container.instance.undefine(key)
       end
     end
 
     def initialize
-
       @items = {}
     end
 
     def define(key, value = nil, &block)
       @items[key] = ContainerItem.new(value || block)
+    end
+
+    def define_singleton(key, klass)
+      if klass.instance_method(:initialize).arity <= 0
+        @items[key] = ContainerItem.new(klass.new)
+      else
+        raise Pinball::WrongArity.new('Singleton dependency initializer should not have mandatory params')
+      end
     end
 
     def undefine(key)
@@ -44,8 +55,10 @@ module Pinball
 
     def inject(target)
       target.class.dependencies.each do |dep|
-        target.define_singleton_method dep do
-          Container.instance.items.merge(overridden_dependencies)[dep].fetch(self)
+        unless target.respond_to?(dep)
+          target.define_singleton_method dep do
+            Container.instance.items.merge(overridden_dependencies)[dep].fetch(self) rescue raise Pinball::UnknownDependency.new("Dependency #{dep} is unknown, check your pinball config")
+          end
         end
       end
     end

@@ -41,11 +41,41 @@ describe Pinball::Container do
     end
   end
 
+  describe '::define_singleton' do
+    context 'with class without mandatory initializer params' do
+      it 'adds new container item' do
+        Pinball::Container.define_singleton :baz, String
+        expect(Pinball::Container.instance.items[:baz].value).to be_an_instance_of(String)
+      end
+    end
+
+    context 'with class with mandatory initialize params' do
+      it 'raises exception' do
+        WithMandatory = Class.new do
+          def initialize(param)
+          end
+        end
+
+        expect{Pinball::Container.define_singleton :baz, WithMandatory}.to raise_error(Pinball::WrongArity)
+      end
+    end
+  end
+
   describe '::undefine' do
-    it 'removes container item' do
-      Pinball::Container.define :baz, 0
-      Pinball::Container.undefine :baz
-      expect(Pinball::Container.instance.items[:baz]).to be_nil
+    context 'with usual dependency' do
+      it 'removes container item' do
+        Pinball::Container.define :baz, 0
+        Pinball::Container.undefine :baz
+        expect(Pinball::Container.instance.items[:baz]).to be_nil
+      end
+    end
+
+    context 'with singleton dependency' do
+      it 'removes container item' do
+        Pinball::Container.define_singleton :baz, String
+        Pinball::Container.undefine :baz
+        expect(Pinball::Container.instance.items[:baz]).to be_nil
+      end
     end
   end
 

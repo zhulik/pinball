@@ -1,11 +1,8 @@
 class Class
   def inject(*deps)
     check_pinball
-    if @dependencies
-      @dependencies.concat(deps).uniq!
-    else
-      @dependencies = deps
-    end
+    @dependencies ||= []
+    @dependencies.concat(deps).uniq!
   end
 
   def class_inject(*deps)

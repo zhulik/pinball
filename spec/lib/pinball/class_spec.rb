@@ -37,6 +37,21 @@ describe Class do
       foo.inject :bar
       expect(foo.dependencies).to match_array([:baz, :bar])
     end
+
+    it 'resolves known dependencies' do
+      foo.inject :baz
+      foo.inject :bar
+      foo.inject :egg
+
+      expect(foo.new.baz).to eq(0)
+      expect(foo.new.bar).to eq(1)
+      expect(foo.new.egg).to eq(2)
+    end
+
+    it 'raises exception while resolving unknown dependecies' do
+      foo.inject :unknown
+      expect { foo.new.unknown }.to raise_error(Pinball::UnknownDependency)
+    end
   end
 
   describe '::class_inject' do
