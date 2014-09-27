@@ -8,7 +8,7 @@ dependencies between your classes.
 
 # Features
 
-* Stores objects, classes(as factories) and blocks
+* Stores objects, classes(as factories), blocks and singletons
 * Can inject dependencies to classes and instances
 * Simple DSL for configuring the container
 * Stored block will be call in dependent class instance
@@ -96,6 +96,17 @@ end
 This block will be executed it `FirstService` instance context where
 `@current_user` will be accessible.
 **Notice:** each call of `second_service` will call this block over and over again.
+
+### Singleton injection
+
+Instead of class injection, singleton injection will not create new objects every time. It will create only one and then
+returns it. Perfect for stateless services and other singletons. Modifying of classes is not required.
+
+```ruby
+class Service
+  inject_singleton :service
+end
+```
 
 ### class_inject
 
