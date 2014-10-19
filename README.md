@@ -97,14 +97,14 @@ This block will be executed it `FirstService` instance context where
 `@current_user` will be accessible.
 **Notice:** each call of `second_service` will call this block over and over again.
 
-### Singleton injection
+### Singletons
 
 Instead of class injection, singleton injection will not create new objects every time. It will create only one and then
 returns it. Perfect for stateless services and other singletons. Modifying of classes is not required.
 
 ```ruby
-class Service
-  inject_singleton :service
+Pinball::Container.configure do
+  define_singleton :second_service, SingletonClass
 end
 ```
 
