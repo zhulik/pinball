@@ -16,7 +16,7 @@ class Class
   def check_pinball
     unless is_a? Pinball
       extend Pinball
-      public_send(:include, Pinball::Methods)
+      send(:include, Pinball::Methods)
 
       public_send(:define_singleton_method, :inherited_with_pinball) do |child|
         inherited_without_pinball(child) if respond_to?(:inherited_without_pinball)
