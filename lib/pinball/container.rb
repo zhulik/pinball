@@ -9,27 +9,27 @@ module Pinball
 
     class << self
       def configure(&block)
-        self.instance.instance_exec(&block)
+        instance.instance_exec(&block)
       end
 
       def lookup(key)
-        Pinball::Container.instance.items[key]
+        instance.items[key]
       end
 
       def clear
-        Pinball::Container.instance.items.clear
+        instance.items.clear
       end
 
       def define(key, value = nil, &block)
-        Pinball::Container.instance.define(key, value, &block)
+        instance.define(key, value, &block)
       end
 
       def define_singleton(key, klass)
-        Pinball::Container.instance.define_singleton(key, klass)
+        instance.define_singleton(key, klass)
       end
 
       def undefine(key)
-        Pinball::Container.instance.undefine(key)
+        instance.undefine(key)
       end
     end
 
@@ -57,10 +57,15 @@ module Pinball
       target.class.dependencies.each do |dep|
         unless target.respond_to?(dep)
           target.define_singleton_method dep do
-            Container.instance.items.merge(overridden_dependencies)[dep].fetch(self) rescue raise Pinball::UnknownDependency.new("Dependency #{dep} is unknown, check your pinball config")
+            begin
+              Container.instance.items.merge(overridden_dependencies)[dep].fetch(self)
+            rescue NoMethodError
+              raise Pinball::UnknownDependency.new("Dependency #{dep} is unknown, check your pinball config")
+            end
           end
         end
       end
+
     end
   end
 end

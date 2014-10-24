@@ -14,18 +14,18 @@ class Class
   end
 
   def check_pinball
-    unless self.is_a? Pinball
-      self.extend Pinball
-      self.send(:include, Pinball::Methods)
+    unless is_a? Pinball
+      extend Pinball
+      public_send(:include, Pinball::Methods)
 
-      self.send(:define_singleton_method, :inherited_with_pinball) do |child|
+      public_send(:define_singleton_method, :inherited_with_pinball) do |child|
         inherited_without_pinball(child) if respond_to?(:inherited_without_pinball)
-        child.instance_variable_set :@dependencies, self.dependencies
+        child.instance_variable_set :@dependencies, dependencies
         child.check_pinball
       end
 
-      self.send(:define_singleton_method, :inherited_without_pinball, self.method(:inherited)) if self.respond_to?(:inherited)
-      self.send(:define_singleton_method, :inherited, self.method(:inherited_with_pinball))
+      public_send(:define_singleton_method, :inherited_without_pinball, method(:inherited)) if respond_to?(:inherited)
+      public_send(:define_singleton_method, :inherited, method(:inherited_with_pinball))
     end
   end
 end
