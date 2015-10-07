@@ -108,9 +108,9 @@ describe Pinball::Container do
     end
 
     it 'automatically injects dependencies to class' do
-      expect(foo.new.respond_to?(:baz)).to be_true
-      expect(foo.new.respond_to?(:bar)).to be_true
-      expect(foo.new.respond_to?(:spam)).to be_true
+      expect(foo.new.respond_to?(:baz)).to be_truthy
+      expect(foo.new.respond_to?(:bar)).to be_truthy
+      expect(foo.new.respond_to?(:spam)).to be_truthy
     end
 
     it 'injects valid dependencies' do

@@ -17,7 +17,7 @@ describe Class do
 
   describe '::inject' do
     it 'responds to ::inject method' do
-      expect(foo.respond_to?(:inject)).to be_true
+      expect(foo.respond_to?(:inject)).to be_truthy
     end
 
     it 'creates @dependencies array' do
@@ -57,7 +57,7 @@ describe Class do
   describe '::class_inject' do
     it 'defines new method' do
       foo.class_inject :baz
-      expect(foo.respond_to?(:baz)).to be_true
+      expect(foo.respond_to?(:baz)).to be_truthy
     end
 
     it 'injects valid dependency' do
